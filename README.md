@@ -1,60 +1,287 @@
-# Superstore Sales Dashboard (Excel)
+# 📊 Superstore Sales Dashboard (Excel)
 
-An interactive multi-page Excel dashboard analyzing sales, profit, 
-shipping, and product performance for a retail superstore dataset.
+An interactive **multi-page Excel dashboard** built to analyze sales, profit, shipping, customer, and product performance using the Superstore retail dataset.
 
-## 📊 Data Source
-Dataset based on the classic "Superstore" retail sales dataset 
-(9,994 order records), publicly available on Kaggle.
-
-## 🔍 Key Insight
-While reviewing the data model, I found the original COGS calculation 
-was logically inconsistent (an incorrect sign in the Discount 
-adjustment), which understated true product cost by ~19%. I traced 
-this back through Power Query, corrected the formula using 
-Unit Cost × Quantity, and rebuilt the dependent margin calculations. 
-This revealed that Furniture, while profitable, operates on a much 
-thinner margin (~2.5%) compared to Technology and Office Supplies (~17%).
-
-## 📊 Dashboard Pages
-- **Home** — Overall KPIs, profit trend, top customers by sales
-- **Country** — Regional & state-level performance, profit/loss by state
-- **Shipping** — Delivery mode efficiency, shipping cost vs. profit
-- **Sales** — Customer behavior, discount analysis, Sales vs COGS vs Profit
-- **Product** — Sub-category and product-level performance
-
-## 🛠️ Tools & Techniques
-**Power Query**
-- Data cleaning & transformation
-- Custom calculated columns (e.g. COGS)
-- Splitting & merging columns
-- Conditional column logic (e.g. date/year extraction)
-- Merging a separate Shipping Cost source into the main data model
-
-**Power Pivot / DAX**
-- Relationships across Orders, Returns, People, and Shipping Cost tables
-- Calculated Measures (e.g. Profit Margin %, Profit Per Order)
-
-**Excel Dashboard Design**
-- PivotTables & PivotCharts
-- Slicers connected across all report pages (Report Connections)
-- Conditional formatting (Invert if Negative for loss-making states/products)
-- VBA Macro for one-click "Clear All Filters"
-
-## 💾 Data
-All data is embedded within the workbook (loaded via Power Query) — 
-no external files needed. Simply download and open the .xlsm file.
-
-## ⚠️ Note
-This workbook contains a VBA macro (`Clear_All_Slicers`) used to reset 
-all dashboard filters with one click. When opening, Excel may show a 
-security warning — this is expected and safe; enable macros to use 
-the "Clear Filter" button.
-
-## 📁 Files
-- `Superstore-Sales-Dashboard.xlsm` — the full workbook
-- `screenshots/` — preview images of each dashboard page
+The project demonstrates the complete BI workflow—from **data cleaning and transformation** to **data modeling, DAX calculations, and interactive dashboard design** using Microsoft Excel.
 
 ---
-**Author:** Khaled Nabil  
-🔗 [LinkedIn](https://www.linkedin.com/in/khaled-nabil-270a95253) | 📧 khalednabil369@gmail.com
+
+# 📷 Dashboard Preview
+
+## 🏠 Home Dashboard
+
+![Home](screenshots/Home.png)
+
+**Overview of business performance including:**
+- Total Sales
+- Total Profit
+- Total Orders
+- Total Customers
+- Profit Margin
+- Sales Distribution
+- Monthly Sales Trend
+- Top Customers
+
+---
+
+## 🌍 Country Dashboard
+
+![Country](screenshots/Country.png)
+
+Analyze geographic performance through:
+
+- Regional Sales
+- State Performance
+- Top States
+- Sales & Profit by Region
+- Monthly Sales Trend
+
+---
+
+## 🚚 Shipping Dashboard
+
+![Shipping](screenshots/Shipping.png)
+
+Shipping analysis including:
+
+- Shipping Cost
+- Delivery Duration
+- Average Profit
+- Ship Mode Distribution
+- Shipping Cost vs Profit
+- Orders by Ship Mode
+
+---
+
+## 💰 Sales Dashboard
+
+![Sales](screenshots/Sales.png)
+
+Sales analysis including:
+
+- Customer Purchasing Behavior
+- Sales vs Profit
+- Sales vs COGS
+- Average Discount
+- Top Customers
+- Sales by Segment
+
+---
+
+## 📦 Product Dashboard
+
+![Product](screenshots/Product.png)
+
+Product performance analysis including:
+
+- Top Selling Products
+- Sales vs Profit by Sub-Category
+- Quantity Sold
+- Profit by Category
+- Product KPIs
+
+---
+
+# 📊 Dataset
+
+The project uses the classic **Superstore Sales Dataset**.
+
+- Nearly **10,000 sales records**
+- Orders
+- Customers
+- Products
+- Returns
+- Regions
+- Shipping information
+
+Dataset Source:
+
+https://www.kaggle.com/datasets
+
+---
+
+# 💡 Business Insights
+
+During development, I reviewed the data model and rebuilt several calculations to improve reporting quality.
+
+Key findings include:
+
+- Technology generated the highest overall profit.
+- Furniture produced high sales but relatively low profitability.
+- Some sub-categories generated high revenue while producing negative profit.
+- Office Supplies sold the largest quantity of products.
+- Shipping cost and delivery performance varied significantly across shipping modes.
+
+---
+
+# 🛠️ Tools & Technologies
+
+## Microsoft Excel
+
+- PivotTables
+- PivotCharts
+- Dashboard Design
+- Slicers
+- Timeline Filters
+- Conditional Formatting
+
+---
+
+## Power Query
+
+- Data Cleaning
+- ETL Process
+- Merge Queries
+- Append Queries
+- Custom Columns
+- Conditional Columns
+- Data Transformation
+
+---
+
+## Power Pivot
+
+- Data Modeling
+- Relationships
+- Measures
+- Calculated Columns
+
+---
+
+## DAX
+
+Custom Measures including:
+
+- Total Sales
+- Total Profit
+- Profit Margin
+- Profit per Order
+- Average Shipping Cost
+- Average Delivery Duration
+- Quantity Sold
+- Total Products
+
+---
+
+## VBA
+
+Created a macro to reset every slicer across all dashboard pages with one click.
+
+```vb
+Sub Clear_All_Slicers()
+
+    Dim sc As SlicerCache
+
+    For Each sc In ThisWorkbook.SlicerCaches
+        sc.ClearManualFilter
+    Next sc
+
+End Sub
+```
+
+---
+
+# ✨ Dashboard Features
+
+- Interactive multi-page dashboard
+- Fully connected slicers across all reports
+- Dynamic KPI Cards
+- Power Query ETL
+- Power Pivot Data Model
+- DAX Measures
+- VBA Automation
+- Responsive PivotCharts
+- Business-focused visualizations
+
+---
+
+# 📈 Dashboard Pages
+
+| Page | Description |
+|-------|-------------|
+| Home | Executive overview of business performance |
+| Country | Regional and state analysis |
+| Shipping | Shipping performance analysis |
+| Sales | Customer and sales analysis |
+| Product | Product and sub-category analysis |
+
+---
+
+# 📁 Repository Structure
+
+```
+Superstore-Sales-Dashboard
+│
+├── screenshots
+│   ├── Home.png
+│   ├── Country.png
+│   ├── Shipping.png
+│   ├── Sales.png
+│   └── Product.png
+│
+├── Superstore-Sales-Dashboard.xlsm
+└── README.md
+```
+
+---
+
+# ⚠️ Note
+
+The workbook contains a VBA macro:
+
+```
+Clear_All_Slicers
+```
+
+Excel may display a security warning when opening the workbook.
+
+Simply click:
+
+**Enable Content**
+
+to activate the **Clear Filter** button.
+
+---
+
+# 💾 Download
+
+Download the workbook:
+
+```
+Superstore-Sales-Dashboard.xlsm
+```
+
+Open the workbook using **Microsoft Excel** with macros enabled.
+
+---
+
+# 🧠 Skills Demonstrated
+
+- Data Cleaning
+- ETL
+- Data Modeling
+- Data Visualization
+- Dashboard Design
+- Business Intelligence
+- Business Analysis
+- DAX
+- Power Query
+- Power Pivot
+- Excel Automation
+- VBA
+
+---
+
+# 👨‍💻 Author
+
+**Khaled Nabil**
+
+📧 khalednabil369@gmail.com
+
+💼 LinkedIn
+
+https://www.linkedin.com/in/khaled-nabil-270a95253
+
+---
+
+## ⭐ If you found this project useful, consider giving it a Star.
