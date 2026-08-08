@@ -174,14 +174,14 @@ This structure made it possible to build reusable DAX measures (Total Sales, Pro
 Custom measures built in the model, including:
 
 ```dax
-Total Customers        = DISTINCTCOUNT(Orders[Customer ID])
-Total Orders            = DISTINCTCOUNT([Order ID])
-Total Products           = DISTINCTCOUNT(Orders[Product ID])
-Total Quantity Sold      = SUM(Orders[Quantity])
-Total Orders Returned    = SUM(Orders[Returned])
-Avg. Profit              = AVERAGE(Orders[Profit])
-Profit Per Customer      = CALCULATE([Total Profit] / [Total Customers])
-Profit Per Order         = CALCULATE([Total Profit] / [Total Orders])
+Total Customers     = DISTINCTCOUNT(Orders[Customer ID])
+Total Orders         = DISTINCTCOUNT([Order ID])
+Total Products        = DISTINCTCOUNT(Orders[Product ID])
+Total Quantity Sold   = SUM(Orders[Quantity])
+Total Orders Returned = SUM(Orders[Returned])
+Avg. Profit           = AVERAGE(Orders[Profit])
+Profit Per Customer   = CALCULATE([Total Profit] / [Total Customers])
+Profit Per Order      = CALCULATE([Total Profit] / [Total Orders])
 ```
 
 Along with additional measures for **Total Profit**, **Profit Margin**, **Profit In Florida**, and **Average Delivery Duration**, used to power the KPI cards and charts across all dashboard pages.
