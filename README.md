@@ -129,13 +129,19 @@ Key findings include:
 
 ## Power Query
 
+Four queries were built to load and clean the source data:
+
+- **Orders** — the main query, going through **~40 applied steps** (split columns by position/delimiter, merged columns, custom columns, renamed and reordered columns, type conversions) to turn the raw source data into a clean, structured 26-column table
+- **Return**, **People**, **Shipping Cost** — smaller lookup queries, cleaned via header promotion and type conversion
+
+Techniques used:
+
 - Data Cleaning
 - ETL Process
-- Merge Queries
-- Append Queries
+- Split & Merge Columns
 - Custom Columns
-- Conditional Columns
-- Data Transformation
+- Renamed & Reordered Columns
+- Data Type Transformation
 
 ---
 
@@ -148,18 +154,37 @@ Key findings include:
 
 ---
 
+# 🗂️ Data Model
+
+The data model was built in **Power Pivot** using **4 related tables** rather than a single flat table, structured as a **star schema** with Orders as the central fact table:
+
+- **Orders** (fact table) — 26 columns, ~1,000 rows — sales transactions, quantities, discounts, cost, profit
+- **Return** — 296 rows, related to Orders via *Order ID* — flagged returned orders
+- **People** — 4 rows, related to Orders via *Region* — sales rep per region
+- **Shipping_Cost** — 49 rows, related to Orders via *State* — shipping cost per state
+
+**Relationships:** All three lookup tables (Return, People, Shipping_Cost) connect to Orders through standard **one-to-many** relationships, allowing DAX measures to correctly aggregate and filter across the model instead of relying on VLOOKUP/flat merges.
+
+This structure made it possible to build reusable DAX measures (Total Sales, Profit Margin, etc.) that stay accurate across all slicers and dashboard pages, rather than being hardcoded to one table.
+
+---
+
 ## DAX
 
-Custom Measures including:
+Custom measures built in the model, including:
 
-- Total Sales
-- Total Profit
-- Profit Margin
-- Profit per Order
-- Average Shipping Cost
-- Average Delivery Duration
-- Quantity Sold
-- Total Products
+```dax
+Total Customers        = DISTINCTCOUNT(Orders[Customer ID])
+Total Orders            = DISTINCTCOUNT([Order ID])
+Total Products           = DISTINCTCOUNT(Orders[Product ID])
+Total Quantity Sold      = SUM(Orders[Quantity])
+Total Orders Returned    = SUM(Orders[Returned])
+Avg. Profit              = AVERAGE(Orders[Profit])
+Profit Per Customer      = CALCULATE([Total Profit] / [Total Customers])
+Profit Per Order         = CALCULATE([Total Profit] / [Total Orders])
+```
+
+Along with additional measures for **Total Profit**, **Profit Margin**, **Profit In Florida**, and **Average Delivery Duration**, used to power the KPI cards and charts across all dashboard pages.
 
 ---
 
